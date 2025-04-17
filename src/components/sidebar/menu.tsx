@@ -12,10 +12,11 @@ if(!show) return null;
       transition={{ duration: 0.5 }}
       className="bg-[hsl(280,100%,70%)] w-64 flex flex-col items-center justify-around h-full"
     > 
-      <div className="flex flex-col items-center justify-center ">  
+      <div suppressHydrationWarning className="flex flex-col items-center justify-center ">  
         <Link href="/">Home</Link>
         <Link href="/login">Login</Link>
         <Link href="/dashboard">Dashboard</Link>
+        <Link href="/admin">Admin</Link>
         <Link href="/usuarios">Usuarios</Link>
         <Link href="/pagamento">Pagamentos</Link>
       </div>

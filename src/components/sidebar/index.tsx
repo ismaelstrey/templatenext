@@ -5,5 +5,5 @@ const usuario = await auth();
 
 
   //retorna o componente Aside com o usuári
-  return  <Aside usuario={usuario}/>
+  return <div suppressHydrationWarning> <Aside usuario={usuario}/></div>
 }

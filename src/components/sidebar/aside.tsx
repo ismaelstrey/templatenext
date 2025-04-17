@@ -19,7 +19,7 @@ export default function Aside({usuario}:{usuario?:Session | null}) {
         setShow(!show);//verifica se está funcionand
     } 
   return (
-    <div className="flex h-screen "> 
+    <div className="flex h-screen" suppressHydrationWarning> 
        {usuario  && <> <TbArrowBadgeRightFilled title={ show ? 'Esconder menu' :'Mostrar menu'} size={40} className={`fixed top-2 left-2 ${show && 'rotate-180'}`} onClick={handleClick}/>         
        <Menu show={show} usuario={usuario} /> </>}
     </div>

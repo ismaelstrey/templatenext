@@ -16,6 +16,7 @@ export function Usuario({usuario}:{usuario?:Session | null}) {
       <button className="text-[#15162c] mt-2 text-center justify-center w-full cursor-pointer hover:scale-110" type="submit">Sair</button>
     </form>
    </span>
+
    
 
     

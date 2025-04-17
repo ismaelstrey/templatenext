@@ -1,6 +1,6 @@
 import { handleAuth } from "~/actions/handle-auth";
 
-export default async function HomePage() {
+export default async function Login() {
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center">
       <div suppressHydrationWarning className="container flex flex-col items-center justify-center gap-12 px-4 py-16">

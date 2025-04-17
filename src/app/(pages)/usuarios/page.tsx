@@ -1,29 +1,49 @@
 "use client"
+import type { User } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 
-interface User  {
-  name: string | null;
-  id: string;
-  email: string | null;
-  emailVerified: Date | null;
-  image: string | null;
+interface Usuario extends User  {
+
 }
 export default function HomePage() {
-const [usuarios, setUsuarios] = useState<User[]|[]>([]);
+const [usuarios, setUsuarios] = useState<Usuario[]|[]>([]);
+const [type, setType] = useState<string>("user");
+const fetchUsuarios = async ():Promise<void> => {
+  try {
+    const response = await fetch("/api/usuarios");
+    const data = await response.json() as User[];
+    setUsuarios(data);
+    setType("user");
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    setUsuarios([]);
+  }
+}
 
-  useEffect(() => {
-    const fetchUsuarios = async ():Promise<void> => {
-      try {
-        const response = await fetch("/api/usuarios");
-        const data = await response.json() as User[];
-        setUsuarios(data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-        setUsuarios([]);
-      }
-    }   
+const updateStatus = async (id:string,type:string) => {
+  try {
+    const response = await fetch(`/api/usuarios`,{
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        type,
+      }),
+    })
+    console.log(response)
+    fetchUsuarios();
+  }catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+  useEffect(() => {   
     
     void fetchUsuarios();
   },[])
@@ -37,12 +57,31 @@ const [usuarios, setUsuarios] = useState<User[]|[]>([]);
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {usuarios.map((usuario) => (
             <div key={usuario.id} className="flex flex-col items-center justify-center gap-4">
+            
               {usuario.image && usuario.name && <Image unoptimized src={usuario?.image} width={24} height={24} alt={usuario.name} className="w-24 h-24 rounded-full" />}
+              <span>{usuario.id}</span>
+              <span>{usuario.type}</span>
+  
               <h2 className="text-xl font-semibold text-white">{usuario.name}</h2>
               <p className="text-gray-400">{usuario.email}</p>
-            </div>
-
+                     
+            <div>
+          
+            <form
+              action={()=>updateStatus(usuario.id, type)}
+            >
+          
+              <select className="bg-purple-700" onChange={(e)=>setType(e.target.value)}>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>   
+               <button className="mt-2 text-center justify-center w-full cursor-pointer hover:scale-110" type="submit">Alterar</button>
+            </form>
+            
+          </div>
+          </div> 
           ))}
+ 
         </div>
       </div>
     </main>
