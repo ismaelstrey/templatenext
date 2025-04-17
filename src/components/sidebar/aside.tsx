@@ -11,10 +11,9 @@ export default function Aside({usuario}:{usuario?:Session | null}) {
 
     useEffect(()=>{
       if(!usuario?.user.name) {
-        router.push('/login')
-       
+        router.push('/login')       
         }
-    },[router])
+    },[router,usuario?.user.name])
 
     const handleClick = () => {
         setShow(!show);//verifica se está funcionand

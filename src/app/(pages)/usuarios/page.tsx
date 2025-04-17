@@ -14,15 +14,18 @@ export default function HomePage() {
 const [usuarios, setUsuarios] = useState<User[]|[]>([]);
 
   useEffect(() => {
-    const fetchUsuarios = async () => {
-      const response = await fetch("/api/usuarios")
-
-      const data = await response.json();
-
-      setUsuarios(data);
-
+    const fetchUsuarios = async ():Promise<void> => {
+      try {
+        const response = await fetch("/api/usuarios");
+        const data = await response.json() as User[];
+        setUsuarios(data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setUsuarios([]);
+      }
     }   
-    fetchUsuarios();
+    
+    void fetchUsuarios();
   },[])
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center" suppressHydrationWarning >
