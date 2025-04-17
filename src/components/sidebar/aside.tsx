@@ -15,7 +15,7 @@ export default function Aside({usuario}:{usuario?:Session | null}) {
        
         }
     },[router])
-console.log('oi')
+
     const handleClick = () => {
         setShow(!show);//verifica se está funcionand
     } 

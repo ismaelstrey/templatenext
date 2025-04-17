@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist } from "next/font/google";
 import Sidebar from "~/components/sidebar";
 
 export const metadata: Metadata = {
@@ -10,16 +9,13 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
+
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html lang="pt-BR" >
       <body>
        <div className="flex w-screen bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
   
