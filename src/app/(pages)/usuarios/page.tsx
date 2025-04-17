@@ -1,10 +1,31 @@
-
+"use client"
 import Image from "next/image";
-import { usuarios } from "~/server/usuarios/user";
-export default async function HomePage() {
-  console.log(usuarios)
+import { useEffect, useState } from "react";
+
+
+interface User  {
+  name: string | null;
+  id: string;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
+}
+export default function HomePage() {
+const [usuarios, setUsuarios] = useState<User[]|[]>([]);
+
+  useEffect(() => {
+    const fetchUsuarios = async () => {
+      const response = await fetch("/api/usuarios")
+
+      const data = await response.json();
+
+      setUsuarios(data);
+
+    }   
+    fetchUsuarios();
+  },[])
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center">
+    <main className="flex min-h-screen w-full flex-col items-center justify-center" suppressHydrationWarning >
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
           Page <span className="text-[hsl(280,100%,70%)]">Usuarios</span> 
